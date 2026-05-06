@@ -1,0 +1,264 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2024-12-10T10:00:00Z",
+  "resources": [
+    {
+      "_id": "workspace",
+      "parentId": null,
+      "name": "Finance Tracker API",
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_admin_login",
+      "parentId": "workspace",
+      "name": "01 - ADMIN LOGIN",
+      "method": "POST",
+      "url": "http://localhost:8080/api/auth/signin",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}"
+      },
+      "authentication": {},
+      "_type": "request"
+    },
+    {
+      "_id": "req_user_login",
+      "parentId": "workspace",
+      "name": "02 - USER LOGIN",
+      "method": "POST",
+      "url": "http://localhost:8080/api/auth/signin",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"username\": \"user\",\n  \"password\": \"user123\"\n}"
+      },
+      "authentication": {},
+      "_type": "request"
+    },
+    {
+      "_id": "req_manager_login",
+      "parentId": "workspace",
+      "name": "03 - MANAGER LOGIN",
+      "method": "POST",
+      "url": "http://localhost:8080/api/auth/signin",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"username\": \"manager\",\n  \"password\": \"manager123\"\n}"
+      },
+      "authentication": {},
+      "_type": "request"
+    },
+    {
+      "_id": "req_refresh_token",
+      "parentId": "workspace",
+      "name": "04 - REFRESH TOKEN",
+      "method": "POST",
+      "url": "http://localhost:8080/api/auth/refresh",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"refreshToken\": \"СЮДА_ВСТАВИТЬ_REFRESH_TOKEN_ИЗ_ЛОГИНА\"\n}"
+      },
+      "authentication": {},
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_all_users",
+      "parentId": "workspace",
+      "name": "05 - ADMIN: GET ALL USERS",
+      "method": "GET",
+      "url": "http://localhost:8080/api/admin/users",
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "СЮДА_ВСТАВИТЬ_ADMIN_TOKEN"
+      },
+      "_type": "request"
+    },
+    {
+      "_id": "req_add_role",
+      "parentId": "workspace",
+      "name": "06 - ADMIN: ADD ROLE TO USER",
+      "method": "POST",
+      "url": "http://localhost:8080/api/admin/users/3/roles/ROLE_MANAGER",
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "СЮДА_ВСТАВИТЬ_ADMIN_TOKEN"
+      },
+      "_type": "request"
+    },
+    {
+      "_id": "req_remove_role",
+      "parentId": "workspace",
+      "name": "07 - ADMIN: REMOVE ROLE FROM USER",
+      "method": "DELETE",
+      "url": "http://localhost:8080/api/admin/users/3/roles/ROLE_MANAGER",
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "СЮДА_ВСТАВИТЬ_ADMIN_TOKEN"
+      },
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_transactions",
+      "parentId": "workspace",
+      "name": "08 - USER: GET MY TRANSACTIONS",
+      "method": "GET",
+      "url": "http://localhost:8080/api/transactions",
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "СЮДА_ВСТАВИТЬ_USER_TOKEN"
+      },
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_transaction",
+      "parentId": "workspace",
+      "name": "09 - USER: CREATE TRANSACTION",
+      "method": "POST",
+      "url": "http://localhost:8080/api/transactions",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"amount\": 250.50,\n  \"type\": \"EXPENSE\",\n  \"category\": \"Restaurant\",\n  \"date\": \"2024-12-10\",\n  \"description\": \"Dinner with friends\"\n}"
+      },
+      "authentication": {
+        "type": "bearer",
+        "token": "СЮДА_ВСТАВИТЬ_USER_TOKEN"
+      },
+      "_type": "request"
+    },
+    {
+      "_id": "req_filter_transactions",
+      "parentId": "workspace",
+      "name": "10 - USER: FILTER TRANSACTIONS",
+      "method": "GET",
+      "url": "http://localhost:8080/api/transactions/filtered?type=EXPENSE&page=0&size=10&sortBy=date&sortDir=desc",
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "СЮДА_ВСТАВИТЬ_USER_TOKEN"
+      },
+      "_type": "request"
+    },
+    {
+      "_id": "req_update_transaction",
+      "parentId": "workspace",
+      "name": "11 - USER: UPDATE TRANSACTION",
+      "method": "PUT",
+      "url": "http://localhost:8080/api/transactions/1",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"amount\": 300.00,\n  \"type\": \"EXPENSE\",\n  \"category\": \"Restaurant\",\n  \"date\": \"2024-12-10\",\n  \"description\": \"Updated description\"\n}"
+      },
+      "authentication": {
+        "type": "bearer",
+        "token": "СЮДА_ВСТАВИТЬ_USER_TOKEN"
+      },
+      "_type": "request"
+    },
+    {
+      "_id": "req_delete_transaction",
+      "parentId": "workspace",
+      "name": "12 - USER: DELETE TRANSACTION",
+      "method": "DELETE",
+      "url": "http://localhost:8080/api/transactions/1",
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "СЮДА_ВСТАВИТЬ_USER_TOKEN"
+      },
+      "_type": "request"
+    },
+    {
+      "_id": "req_dashboard",
+      "parentId": "workspace",
+      "name": "13 - USER: DASHBOARD SUMMARY",
+      "method": "GET",
+      "url": "http://localhost:8080/api/dashboard/summary",
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "СЮДА_ВСТАВИТЬ_USER_TOKEN"
+      },
+      "_type": "request"
+    },
+    {
+      "_id": "req_analytics",
+      "parentId": "workspace",
+      "name": "14 - USER: EXPENSES BY CATEGORY",
+      "method": "GET",
+      "url": "http://localhost:8080/api/analytics/expenses-by-category?startDate=2024-11-01&endDate=2024-11-30",
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "СЮДА_ВСТАВИТЬ_USER_TOKEN"
+      },
+      "_type": "request"
+    },
+    {
+      "_id": "req_manager_view_user",
+      "parentId": "workspace",
+      "name": "15 - MANAGER: VIEW USER TRANSACTIONS",
+      "method": "GET",
+      "url": "http://localhost:8080/api/manager/users/3/transactions",
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "СЮДА_ВСТАВИТЬ_MANAGER_TOKEN"
+      },
+      "_type": "request"
+    },
+    {
+      "_id": "req_logout",
+      "parentId": "workspace",
+      "name": "16 - LOGOUT",
+      "method": "POST",
+      "url": "http://localhost:8080/api/auth/logout",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"refreshToken\": \"СЮДА_ВСТАВИТЬ_REFRESH_TOKEN\",\n  \"logoutAllDevices\": false\n}"
+      },
+      "authentication": {
+        "type": "bearer",
+        "token": "СЮДА_ВСТАВИТЬ_USER_TOKEN"
+      },
+      "_type": "request"
+    },
+    {
+      "_id": "req_me",
+      "parentId": "workspace",
+      "name": "17 - GET CURRENT USER",
+      "method": "GET",
+      "url": "http://localhost:8080/api/auth/me",
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "СЮДА_ВСТАВИТЬ_USER_TOKEN"
+      },
+      "_type": "request"
+    }
+  ]
+}
