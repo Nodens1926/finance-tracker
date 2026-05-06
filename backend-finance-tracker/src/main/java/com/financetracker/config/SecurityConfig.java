@@ -36,7 +36,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/signin", "/api/auth/signup", "/api/auth/refresh").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/error").permitAll()
-
+                        .requestMatchers("/actuator/health").permitAll()
                         // ⭐ ДОБАВИТЬ ЭТО — публичные эндпоинты курсов валют
                         .requestMatchers("/api/exchange-rate/**").permitAll()
 

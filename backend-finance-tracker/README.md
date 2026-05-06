@@ -5,6 +5,18 @@ mvn clean spring-boot:run
 cd ~/projects/finance-tracker/finance-tracker-frontend
 npm run dev
 
+--6 ЛАБА
+
+docker build -t finance-backend .
+
+docker build -t finance-frontend .
+
+docker-compose up
+
+docker ps
+
+docker-compose --env-file .env up -d
+
 ТЕХНИЧЕСКАЯ SEO ИНФРАСТРУКТУРА------------------------------------------------------------------------------------------
 
 **1.1 Sitemap.xml (динамическая генерация)**

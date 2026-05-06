@@ -1,0 +1,52 @@
+services:
+  backend:
+    image: finance-backend
+    container_name: finance-backend
+    ports:
+      - "8080:8080"
+    environment:
+      # Database
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:financedb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      # JWT
+      - JWT_SECRET=${JWT_SECRET:-mySecretKeyForJWTTokenGenerationAndValidation2024SpringBootApplication}
+      - JWT_EXPIRATION=${JWT_EXPIRATION:-900000}
+      - JWT_REFRESH_EXPIRATION=${JWT_REFRESH_EXPIRATION:-604800000}
+      # CORS
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost:3000}
+      # AWS S3
+      - AWS_ACCESS_KEY=${AWS_ACCESS_KEY:-minioadmin}
+      - AWS_SECRET_KEY=${AWS_SECRET_KEY:-minioadmin}
+      - AWS_S3_ENDPOINT=${AWS_S3_ENDPOINT:-http://localhost:9000}
+      - AWS_REGION=${AWS_REGION:-us-east-1}
+      - AWS_BUCKET=${AWS_BUCKET:-finance-tracker}
+      - AWS_URL_EXPIRATION=${AWS_URL_EXPIRATION:-15}
+      # Exchange Rate API
+      - EXCHANGE_API_URL=${EXCHANGE_API_URL:-https://api.exchangerate.host}
+      - EXCHANGE_TIMEOUT=${EXCHANGE_TIMEOUT:-5000}
+      - EXCHANGE_RETRY_ATTEMPTS=${EXCHANGE_RETRY_ATTEMPTS:-3}
+      - EXCHANGE_RETRY_DELAY=${EXCHANGE_RETRY_DELAY:-1000}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  frontend:
+    image: finance-frontend
+    container_name: finance-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
