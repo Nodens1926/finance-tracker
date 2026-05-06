@@ -1,0 +1,48 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 22
+        uses: actions/setup-java@v4
+        with:
+          java-version: '22'
+          distribution: 'temurin'
+
+      - name: Build Backend (Spring Boot)
+        run: |
+          cd backend-finance-tracker
+          chmod +x mvnw
+          ./mvnw clean package -DskipTests
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Build Frontend (React)
+        run: |
+          cd finance-tracker-frontend
+          npm ci
+          npm run build
+
+      - name: Build Docker images
+        run: |
+          docker build -t finance-backend ./backend-finance-tracker
+          docker build -t finance-frontend ./finance-tracker-frontend
+
+      - name: Verify Docker images created
+        run: |
+          docker images | grep finance-backend
+          docker images | grep finance-frontend
